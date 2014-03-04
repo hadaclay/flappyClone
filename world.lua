@@ -1,5 +1,11 @@
 world = {}
 
+function world:load() -- Variables for ground scrolling
+  groundWidth = groundGraphic:getWidth() * SF
+  groundHeight = groundGraphic:getHeight()
+  groundPosX = 0
+end
+
 function world:drawGround()
   love.graphics.draw(groundGraphic, groundPosX,
                      love.graphics.getHeight() - groundHeight - 10, 0, SF, SF)
@@ -22,4 +28,3 @@ function world:draw()
                 15, 0, SF, SF)
   end
 end
-
