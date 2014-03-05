@@ -22,7 +22,7 @@ function love.conf(t)
     t.modules.physics = true           -- Enable the physics module (boolean)
     t.modules.sound = true             -- Enable the sound module (boolean)
     t.modules.system = true            -- Enable the system module (boolean)
-    t.modules.timer = false            -- Disable the timer module (boolean)
+    t.modules.timer = true             -- Enable the timer module (boolean)
     t.modules.window = true            -- Enable the window module (boolean)
 
     love.filesystem.setIdentity("fappyDong") -- Set name of write folder
