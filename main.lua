@@ -1,7 +1,7 @@
 require("world")
 require("player")
 
-States = {Loading = 1, NotPlaying = 2, Playing = 3, Lose = 4}
+States = {Loading = 1, NotPlaying = 2, Playing = 3, Death = 4}
 globalState = nil
 
 function love.load()
@@ -31,6 +31,10 @@ end
 
 function love.update(dt)
   next_time = next_time + min_dt
+
+  if globalState == States.NotPlaying then
+    if love.keyboard.isDown(" ") then globalState = States.Playing end
+  end
 
   player:update(dt)
 end
