@@ -1,4 +1,4 @@
-require("lib/AnAL")
+require("lib/AnAL") -- Animation library
 
 love.graphics.setDefaultFilter("nearest", "nearest", 1)
 playerGraphic = love.graphics.newImage("img/fappy_dong_spritesheet.png")
@@ -14,7 +14,7 @@ player = {
     height = playerGraphic:getHeight(),
     rotation = 0,
 
-    -- Before game starts move player up and down
+    -- Pre-game variables
     preGameTop = love.graphics.getHeight()/2 - 30,
     preGameBottom = love.graphics.getHeight()/2 + 10,
     preGameMoveUp = true,
@@ -22,12 +22,25 @@ player = {
     upDownSpeed = 1,
 
     velocity = 0,
-    gravity = 9.81 / 3,
+    gravity = 0.5,
+    flapPower = 10,
 }
 
-function player:preGameMovement()
-  if love.keyboard.isDown(" ") then globalState = States.Playing end
+-- Handle player keypresses
+function love.keypressed(key, isrepeat)
+  if key == " " then
+    if globalState == States.NotPlaying then globalState = States.Playing end
 
+    -- Flap
+    if globalState == States.Playing then
+      player.velocity = 0
+      player.velocity = player.velocity - player.flapPower
+    end
+  end
+end
+
+-- Before game starts move player up and down
+function player:preGameMovement()
   if player.preGameMoveUp == true then
     player.y = player.y - player.upDownSpeed
     if player.y <= player.preGameTop then
@@ -44,7 +57,7 @@ function player:preGameMovement()
 end
 
 function player:gameMovement()
-  deathHeight = groundTop - (player.height * SF)
+  deathHeight = groundTop - (player.height * SF) -- Temporary, no collision.
 
   player.velocity = player.velocity + player.gravity
   player.y = player.y + player.velocity
@@ -54,7 +67,6 @@ end
 
 function player:death()
   player.y = deathHeight
-  player.gravity = 0
   player.velocity = 0
 
   player.spriteAnim:stop()
@@ -62,7 +74,6 @@ function player:death()
   if love.keyboard.isDown("r") then
     player.spriteAnim:play()
     player.y = love.graphics.getHeight() / 2
-    player.gravity = 9.81 / 3
 
     globalState = States.NotPlaying
   end
