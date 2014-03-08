@@ -2,7 +2,6 @@ require("lib/AnAL")
 
 love.graphics.setDefaultFilter("nearest", "nearest", 1)
 playerGraphic = love.graphics.newImage("img/fappy_dong_spritesheet.png")
-SF = 4
 
 player = {
     spriteAnim = newAnimation(playerGraphic, 17, 12, 0.1, 0),
@@ -16,10 +15,11 @@ player = {
     rotation = 0,
 
     -- Before game starts move player up and down
-    preGameTop = love.graphics.getHeight()/2 - 18,
-    preGameBottom = love.graphics.getHeight()/2 + 18,
+    preGameTop = love.graphics.getHeight()/2 - 30,
+    preGameBottom = love.graphics.getHeight()/2 + 10,
     preGameMoveUp = true,
     preGameMoveDown = false,
+    upDownSpeed = 1,
 
     velocity = 0,
     gravity = 9.81 / 3,
@@ -29,17 +29,17 @@ function player:preGameMovement()
   if love.keyboard.isDown(" ") then globalState = States.Playing end
 
   if player.preGameMoveUp == true then
-    player.y = player.y - 1
-    if player.y == player.preGameTop then
+    player.y = player.y - player.upDownSpeed
+    if player.y <= player.preGameTop then
       player.preGameMoveUp = false
       player.preGameMoveDown = true
     end
   elseif player.preGameMoveDown == true then
-      player.y = player.y + 1
-      if player.y == player.preGameBottom then
-        player.preGameMoveDown = false
-        player.preGameMoveUp = true
-      end
+    player.y = player.y + player.upDownSpeed
+    if player.y >= player.preGameBottom then
+      player.preGameMoveDown = false
+      player.preGameMoveUp = true
+    end
   end
 end
 

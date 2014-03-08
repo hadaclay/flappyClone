@@ -19,6 +19,7 @@ function love.load()
   groundGraphic   = love.graphics.newImage("img/ground.png")
   pipeGraphic     = love.graphics.newImage("img/pipe_condom.png")
   pipeFlipGraphic = love.graphics.newImage("img/pipe_condom_flip.png")
+  playerGraphic = love.graphics.newImage("img/fappy_dong_spritesheet.png")
 
   -- Load Sound
   flapSound = love.sound.newSoundData("sfx/flap.wav")
