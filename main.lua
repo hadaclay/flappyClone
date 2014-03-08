@@ -22,8 +22,8 @@ function love.load()
   playerGraphic = love.graphics.newImage("img/fappy_dong_spritesheet.png")
 
   -- Load Sound
-  flapSound = love.sound.newSoundData("sfx/flap.wav")
-  hurtSound = love.sound.newSoundData("sfx/hurt.wav")
+  flapSound = love.sound.newSoundData("sfx/flap.ogg")
+  hurtSound = love.sound.newSoundData("sfx/hurt.ogg")
 
   world:load()
 
