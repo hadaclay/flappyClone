@@ -62,7 +62,9 @@ function player:gameMovement()
   player.velocity = player.velocity + player.gravity
   player.y = player.y + player.velocity
 
-  if player.y >= groundTop then globalState = States.Death end
+  if player.y + player.height * SF >= groundTop then
+    globalState = States.Death
+  end
 end
 
 function player:death()
