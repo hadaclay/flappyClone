@@ -62,6 +62,10 @@ function player:gameMovement()
   player.velocity = player.velocity + player.gravity
   player.y = player.y + player.velocity
 
+  -- Stop from going too high
+  if player.y <= 0 then player.velocity = 0 end
+
+  -- Check for ground collision
   if player.y + player.height * SF >= groundTop then
     globalState = States.Death
   end
