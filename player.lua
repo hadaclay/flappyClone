@@ -39,6 +39,12 @@ function love.keypressed(key, isrepeat)
   end
 end
 
+function drawText(text, x, y)
+  love.graphics.setColor(250, 250, 250, 255)
+  love.graphics.print(text, x, y)
+  love.graphics.reset()
+end
+
 -- Before game starts move player up and down
 function player:preGameMovement()
   if player.preGameMoveUp == true then
@@ -96,10 +102,11 @@ end
 
 function player:draw()
   if globalState == States.NotPlaying then
-    love.graphics.setColor(250, 250, 250, 255)
-    love.graphics.print("Press Space to Begin",
-                        165, love.graphics.getHeight() / 4)
-    love.graphics.reset()
+    drawText("Press Space to Begin", 165, love.graphics.getHeight() / 4)
+  end
+
+  if globalState == States.Death then
+    drawText("Press R to Restart", 165, love.graphics.getHeight() / 4)
   end
 
   player.spriteAnim:draw(player.x, player.y, player.rotation, SF, SF)
