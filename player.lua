@@ -91,5 +91,12 @@ function player:update(dt)
 end
 
 function player:draw()
+  if globalState == States.NotPlaying then
+    love.graphics.setColor(250, 250, 250, 255)
+    love.graphics.print("Press Space to Begin",
+                        165, love.graphics.getHeight() / 4)
+    love.graphics.reset()
+  end
+
   player.spriteAnim:draw(player.x, player.y, player.rotation, SF, SF)
 end
