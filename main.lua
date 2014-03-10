@@ -14,7 +14,6 @@ function love.load()
 
   -- Load Graphics and font
   SF = 4 -- Graphics scale factor
-  player:load()
   world:load()
 
   gameFont = love.graphics.newFont("img/ataurus.ttf", 36)

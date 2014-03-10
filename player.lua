@@ -2,6 +2,7 @@ require("lib/AnAL") -- Animation library
 
 love.graphics.setDefaultFilter("nearest", "nearest", 1)
 playerGraphic = love.graphics.newImage("img/fappy_dong_spritesheet.png")
+playerAnim = newAnimation(playerGraphic, 17, 12, 0.1, 0)
 SF = 4
 
 player = {
@@ -38,10 +39,6 @@ function love.keypressed(key, isrepeat)
   end
 end
 
-function player:load()
-  playerAnim = newAnimation(playerGraphic, 17, 12, 0.1, 0)
-end
-
 -- Before game starts move player up and down
 function player:preGameMovement()
   if player.preGameMoveUp == true then
@@ -66,7 +63,10 @@ function player:gameMovement()
   player.y = player.y + player.velocity
 
   -- Stop from going too high
-  if player.y <= 0 then player.velocity = 0 end
+  if player.y <= 0 then
+    player.y = 0
+    player.velocity = 0
+  end
 
   -- Check for ground collision
   if player.y + (player.height * SF) >= groundTop then
