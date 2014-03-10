@@ -1,11 +1,20 @@
 world = {}
 
 function world:load() -- Variables for ground scrolling
+  -- Load graphics
+  logoGraphic     = love.graphics.newImage("img/fappyDong Logo.png")
+  bgGraphic       = love.graphics.newImage("img/bg.png")
+  groundGraphic   = love.graphics.newImage("img/ground.png")
+  pipeGraphic     = love.graphics.newImage("img/pipe_condom.png")
+  pipeFlipGraphic = love.graphics.newImage("img/pipe_condom_flip.png")
+
   groundWidth = groundGraphic:getWidth() * SF
   groundHeight = groundGraphic:getHeight()
   groundTop = love.graphics.getHeight() - groundHeight - 10
+  groundPosX = 0 -- Used for ground scrolling
 
-  groundPosX = 0
+  groundCollisionRect = {x = 0, y = groundTop,
+                         w = groundWidth, h = groundHeight}
 end
 
 function world:drawGround()

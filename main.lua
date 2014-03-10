@@ -13,20 +13,15 @@ function love.load()
   love.graphics.setDefaultFilter("nearest", "nearest", 1)
 
   -- Load Graphics and font
-  SF = 4 -- Scale Factor for graphics
-  logoGraphic     = love.graphics.newImage("img/fappyDong Logo.png")
-  bgGraphic       = love.graphics.newImage("img/bg.png")
-  groundGraphic   = love.graphics.newImage("img/ground.png")
-  pipeGraphic     = love.graphics.newImage("img/pipe_condom.png")
-  pipeFlipGraphic = love.graphics.newImage("img/pipe_condom_flip.png")
+  SF = 4 -- Graphics scale factor
+  player:load()
+  world:load()
 
   gameFont = love.graphics.newFont("img/ataurus.ttf", 36)
 
   -- Load Sound
   flapSound = love.sound.newSoundData("sfx/flap.ogg")
   hurtSound = love.sound.newSoundData("sfx/hurt.ogg")
-
-  world:load()
 
   globalState = States.NotPlaying
 end

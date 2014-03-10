@@ -2,28 +2,27 @@ require("lib/AnAL") -- Animation library
 
 love.graphics.setDefaultFilter("nearest", "nearest", 1)
 playerGraphic = love.graphics.newImage("img/fappy_dong_spritesheet.png")
+SF = 4
 
 player = {
-    spriteAnim = newAnimation(playerGraphic, 17, 12, 0.1, 0),
-    SF = 4,
+  -- Sprite Variables
+  x=love.graphics.getWidth()/5,
+  y=love.graphics.getHeight()/2,
+  width = playerGraphic:getWidth() * SF,
+  height = playerGraphic:getHeight(),
+  rotation = 0,
 
-    -- Sprite Variables
-    x=love.graphics.getWidth()/5,
-    y=love.graphics.getHeight()/2,
-    width = playerGraphic:getWidth(),
-    height = playerGraphic:getHeight(),
-    rotation = 0,
+  -- Pre-game variables
+  preGameTop = love.graphics.getHeight()/2 - 30,
+  preGameBottom = love.graphics.getHeight()/2 + 10,
+  preGameMoveUp = true,
+  preGameMoveDown = false,
+  upDownSpeed = 1,
 
-    -- Pre-game variables
-    preGameTop = love.graphics.getHeight()/2 - 30,
-    preGameBottom = love.graphics.getHeight()/2 + 10,
-    preGameMoveUp = true,
-    preGameMoveDown = false,
-    upDownSpeed = 1,
-
-    velocity = 0,
-    gravity = 0.5,
-    flapPower = 10,
+  -- Gameplay variables
+  velocity = 0,
+  gravity = 0.5,
+  flapPower = 10,
 }
 
 -- Handle player keypresses
@@ -39,10 +38,8 @@ function love.keypressed(key, isrepeat)
   end
 end
 
-function drawText(text, x, y)
-  love.graphics.setColor(250, 250, 250, 255)
-  love.graphics.print(text, x, y)
-  love.graphics.reset()
+function player:load()
+  playerAnim = newAnimation(playerGraphic, 17, 12, 0.1, 0)
 end
 
 -- Before game starts move player up and down
@@ -72,7 +69,7 @@ function player:gameMovement()
   if player.y <= 0 then player.velocity = 0 end
 
   -- Check for ground collision
-  if player.y + player.height * SF >= groundTop then
+  if player.y + (player.height * SF) >= groundTop then
     globalState = States.Death
   end
 end
@@ -81,10 +78,10 @@ function player:death()
   player.y = deathHeight
   player.velocity = 0
 
-  player.spriteAnim:stop()
+  playerAnim:stop()
 
   if love.keyboard.isDown("r") then
-    player.spriteAnim:play()
+    playerAnim:play()
     player.y = love.graphics.getHeight() / 2
 
     globalState = States.NotPlaying
@@ -92,12 +89,17 @@ function player:death()
 end
 
 function player:update(dt)
-  player.spriteAnim:update(dt)
+  playerAnim:update(dt)
 
   if globalState == States.NotPlaying then player:preGameMovement() end
   if globalState == States.Playing then player:gameMovement() end
   if globalState == States.Death then player:death() end
+end
 
+function drawText(text, x, y)
+  love.graphics.setColor(250, 250, 250, 255)
+  love.graphics.print(text, x, y)
+  love.graphics.reset()
 end
 
 function player:draw()
@@ -109,5 +111,5 @@ function player:draw()
     drawText("Press R to Restart", 165, love.graphics.getHeight() / 4)
   end
 
-  player.spriteAnim:draw(player.x, player.y, player.rotation, SF, SF)
+  playerAnim:draw(player.x, player.y, player.rotation, SF, SF)
 end
