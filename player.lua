@@ -57,7 +57,7 @@ function player:preGameMovement()
 end
 
 function player:gameMovement()
-  deathHeight = groundTop - (player.height * SF) -- Temporary, no collision.
+  deathHeight = world.groundTop - (player.height * SF) -- Temporary, no collision.
 
   player.velocity = player.velocity + player.gravity
   player.y = player.y + player.velocity
@@ -69,7 +69,7 @@ function player:gameMovement()
   end
 
   -- Check for ground collision
-  if player.y + (player.height * SF) >= groundTop then
+  if player.y + (player.height * SF) >= world.groundTop then
     globalState = States.Death
   end
 end
