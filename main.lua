@@ -5,6 +5,9 @@ States = {Loading = 1, NotPlaying = 2, Playing = 3, Death = 4}
 globalState = nil
 
 function love.load()
+  -- Seed RNG
+  math.randomseed(os.time())
+
   -- FPS Regulation
   min_dt = 1/60
   next_time = love.timer.getTime()
@@ -32,6 +35,7 @@ function love.update(dt)
   end
 
   player:update(dt)
+  world:update(dt)
 end
 
 function love.draw()

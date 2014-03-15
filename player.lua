@@ -2,7 +2,7 @@ require("lib/AnAL") -- Animation library
 
 love.graphics.setDefaultFilter("nearest", "nearest", 1)
 playerGraphic = love.graphics.newImage("img/fappy_dong_spritesheet.png")
-playerAnim = newAnimation(playerGraphic, 17, 12, 0.1, 0)
+playerAnim    = newAnimation(playerGraphic, 17, 12, 0.1, 0)
 SF = 4
 
 player = {
@@ -23,7 +23,7 @@ player = {
   -- Gameplay variables
   velocity = 0,
   gravity = 0.5,
-  flapPower = 10,
+  flapPower = 9,
 }
 
 -- Handle player keypresses
