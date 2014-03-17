@@ -50,3 +50,9 @@ function love.draw()
   end
   love.timer.sleep(next_time - cur_time)
 end
+
+function drawText(text, x, y) -- For Debugging
+  love.graphics.setColor(250, 250, 250, 255)
+  love.graphics.print(text, x, y)
+  love.graphics.reset()
+end

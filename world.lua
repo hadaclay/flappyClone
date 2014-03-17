@@ -9,11 +9,13 @@ SF = 4
 
 world = {
   groundWidth = groundGraphic:getWidth() * SF,
-  groundHeight = groundGraphic:getHeight(),
+  groundHeight = groundGraphic:getHeight() * SF,
   groundTop = love.graphics.getHeight() - groundGraphic:getHeight() - 10,
   groundPosX = 0,      -- Used for ground scrolling
 
   scrollSpeed = 5,
+  pipeWidth = pipeGraphic:getWidth(),
+  pipeHeight = pipeGraphic:getHeight() * SF,
   pipeXDistance = 400, -- Distance between pipes
   pipeYDistance = 150, -- Distance between top and bottom pipe
   pipeYMin = -570,     -- The highest a top pipe can be
@@ -24,19 +26,19 @@ world = {
 pipe1x1 = 450
 pipe1x2 = pipe1x1
 pipe1y1 = math.random(world.pipeYMax, world.pipeYMin)
-pipe1y2 = pipe1y1 + (pipeGraphic:getHeight() * SF) + world.pipeYDistance
+pipe1y2 = pipe1y1 + world.pipeHeight + world.pipeYDistance
 
 -- 2nd Pipe
 pipe2x1 = pipe1x1 + world.pipeXDistance
 pipe2x2 = pipe2x1
 pipe2y1 = math.random(world.pipeYMax, world.pipeYMin)
-pipe2y2 = pipe2y1 + (pipeGraphic:getHeight() * SF) + world.pipeYDistance
+pipe2y2 = pipe2y1 + world.pipeHeight + world.pipeYDistance
 
 -- 3rd Pipe
 pipe3x1 = pipe2x1 + world.pipeXDistance
 pipe3x2 = pipe3x1
 pipe3y1 = math.random(world.pipeYMax, world.pipeYMin)
-pipe3y2 = pipe3y1 + (pipeGraphic:getHeight() * SF) + world.pipeYDistance
+pipe3y2 = pipe3y1 + world.pipeHeight + world.pipeYDistance
 
 -- Update and draw pipes
 function world:spawnPipes()
@@ -72,8 +74,63 @@ function world:spawnPipes()
   end
 end
 
+function world:resetPipes()
+  pipe1x1 = 450
+  pipe1x2 = pipe1x1
+  pipe1y1 = math.random(world.pipeYMax, world.pipeYMin)
+  pipe1y2 = pipe1y1 + world.pipeHeight + world.pipeYDistance
+
+  -- 2nd Pipe
+  pipe2x1 = pipe1x1 + world.pipeXDistance
+  pipe2x2 = pipe2x1
+  pipe2y1 = math.random(world.pipeYMax, world.pipeYMin)
+  pipe2y2 = pipe2y1 + world.pipeHeight + world.pipeYDistance
+
+  -- 3rd Pipe
+  pipe3x1 = pipe2x1 + world.pipeXDistance
+  pipe3x2 = pipe3x1
+  pipe3y1 = math.random(world.pipeYMax, world.pipeYMin)
+  pipe3y2 = pipe3y1 + world.pipeHeight + world.pipeYDistance
+end
+
+function world:updateCollision()
+  -- Collision with pipes
+  -- 1st Pipe
+  if CheckCollision(player.x, player.y, player.width, player.height * SF,
+                    pipe1x1, pipe1y1, world.pipeWidth, world.pipeHeight) then
+    globalState = States.Death
+  elseif
+    CheckCollision(player.x, player.y, player.width, player.height * SF,
+                    pipe1x2, pipe1y2, world.pipeWidth, world.pipeHeight) then
+    globalState = States.Death
+  end
+
+  -- 2nd pipe
+  if CheckCollision(player.x, player.y, player.width, player.height * SF,
+                    pipe2x1, pipe2y1, world.pipeWidth, world.pipeHeight) then
+    globalState = States.Death
+  elseif
+    CheckCollision(player.x, player.y, player.width, player.height * SF,
+                    pipe2x2, pipe2y2, world.pipeWidth, world.pipeHeight) then
+    globalState = States.Death
+  end
+
+  -- 3rd pipe
+  if CheckCollision(player.x, player.y, player.width, player.height * SF,
+                    pipe3x1, pipe3y1, world.pipeWidth, world.pipeHeight) then
+    globalState = States.Death
+  elseif
+    CheckCollision(player.x, player.y, player.width, player.height * SF,
+                    pipe3x2, pipe3y2, world.pipeWidth, world.pipeHeight) then
+    globalState = States.Death
+  end
+end
+
 function world:update(dt)
-  if globalState == States.Playing then world:spawnPipes() end
+  if globalState == States.Playing then
+    world:spawnPipes()
+    world:updateCollision()
+  end
 end
 
 function world:draw()
@@ -88,6 +145,18 @@ function world:draw()
     love.graphics.draw(pipeFlipGraphic, pipe3x1, pipe3y1, 0 ,SF, SF)
     love.graphics.draw(pipeGraphic, pipe3x2, pipe3y2, 0 ,SF, SF)
   end
+
+  if globalState == States.Death then
+    love.graphics.draw(pipeFlipGraphic, pipe1x1, pipe1y1, 0, SF, SF)
+    love.graphics.draw(pipeGraphic, pipe1x2, pipe1y2, 0, SF, SF)
+
+    love.graphics.draw(pipeFlipGraphic, pipe2x1, pipe2y1, 0 ,SF, SF)
+    love.graphics.draw(pipeGraphic, pipe2x2, pipe2y2, 0 ,SF, SF)
+
+    love.graphics.draw(pipeFlipGraphic, pipe3x1, pipe3y1, 0 ,SF, SF)
+    love.graphics.draw(pipeGraphic, pipe3x2, pipe3y2, 0 ,SF, SF)
+  end
+
   world:drawGround()
 
   if globalState == States.NotPlaying then

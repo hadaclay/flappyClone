@@ -1,4 +1,5 @@
 require("lib/AnAL") -- Animation library
+require("lib/BoundingBox")
 
 love.graphics.setDefaultFilter("nearest", "nearest", 1)
 playerGraphic = love.graphics.newImage("img/fappy_dong_spritesheet.png")
@@ -9,7 +10,7 @@ player = {
   -- Sprite Variables
   x=love.graphics.getWidth()/5,
   y=love.graphics.getHeight()/2,
-  width = playerGraphic:getWidth() * SF,
+  width = playerGraphic:getWidth(),
   height = playerGraphic:getHeight(),
   rotation = 0,
 
@@ -57,7 +58,7 @@ function player:preGameMovement()
 end
 
 function player:gameMovement()
-  deathHeight = world.groundTop - (player.height * SF) -- Temporary, no collision.
+  deathHeight = world.groundTop - (player.height * SF)
 
   player.velocity = player.velocity + player.gravity
   player.y = player.y + player.velocity
@@ -94,12 +95,6 @@ function player:update(dt)
   if globalState == States.NotPlaying then player:preGameMovement() end
   if globalState == States.Playing then player:gameMovement() end
   if globalState == States.Death then player:death() end
-end
-
-function drawText(text, x, y)
-  love.graphics.setColor(250, 250, 250, 255)
-  love.graphics.print(text, x, y)
-  love.graphics.reset()
 end
 
 function player:draw()
