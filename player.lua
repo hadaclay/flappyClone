@@ -22,9 +22,11 @@ player = {
   upDownSpeed = 1,
 
   -- Gameplay variables
+  score = 0,
+  highestScore = 0,
   velocity = 0,
   gravity = 0.5,
-  flapPower = 9,
+  flapPower = 10,
 }
 
 -- Handle player keypresses
@@ -76,6 +78,10 @@ function player:gameMovement()
 end
 
 function player:death()
+  if player.score > player.highestScore then
+    player.highestScore = player.score
+  end
+
   player.y = deathHeight
   player.velocity = 0
 
@@ -84,6 +90,8 @@ function player:death()
   if love.keyboard.isDown("r") then
     playerAnim:play()
     player.y = love.graphics.getHeight() / 2
+
+    player.score = 0
 
     globalState = States.NotPlaying
   end
