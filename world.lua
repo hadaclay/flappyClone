@@ -121,11 +121,9 @@ function world:updateCollision()
   if CheckCollision(player.x, player.y, player.width, player.height * SF,
                pipe1x1, pipe1y1, world.pipeWidth, world.pipeHeight - 5) then
     globalState = States.Death
-    player.score = 0
   elseif CheckCollision(player.x, player.y, player.width, player.height * SF,
                pipe1x2, pipe1y2, world.pipeWidth, world.pipeHeight + 5) then
     globalState = States.Death
-    player.score = 0
 
   -- If player passes between pipes, increment score
   elseif CheckCollision(player.x, player.y, player.width / 10, player.height * SF,
@@ -137,11 +135,9 @@ function world:updateCollision()
   if CheckCollision(player.x, player.y, player.width, player.height * SF,
                pipe2x1, pipe2y1, world.pipeWidth, world.pipeHeight - 5) then
     globalState = States.Death
-    player.score = 0
   elseif CheckCollision(player.x, player.y, player.width, player.height * SF,
                pipe2x2, pipe2y2, world.pipeWidth, world.pipeHeight + 5) then
     globalState = States.Death
-    player.score = 0
 
   -- If player passes between pipes, increment score
   elseif CheckCollision(player.x, player.y, player.width / 10, player.height * SF,
@@ -153,11 +149,9 @@ function world:updateCollision()
   if CheckCollision(player.x, player.y, player.width, player.height * SF,
                pipe3x1, pipe3y1, world.pipeWidth, world.pipeHeight - 5) then
     globalState = States.Death
-    player.score = 0
   elseif CheckCollision(player.x, player.y, player.width, player.height * SF,
                pipe3x2, pipe3y2, world.pipeWidth, world.pipeHeight + 5) then
     globalState = States.Death
-    player.score = 0
 
   -- If player passes between pipes, increment score
   elseif CheckCollision(player.x, player.y, player.width / 10, player.height * SF,
@@ -174,6 +168,7 @@ function world:update(dt)
 
   if globalState == States.NotPlaying then
     world:resetPipes()
+    player.score = 0
   end
 end
 
