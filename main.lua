@@ -18,7 +18,8 @@ function love.load()
   -- Load Graphics and font
   SF = 4 -- Graphics scale factor
 
-  gameFont = love.graphics.newFont("img/ataurus.ttf", 36)
+  gameFont = love.graphics.newFont("img/pressstart2p.ttf", 24)
+  gameFont:setFilter("nearest", "nearest", 1)
 
   -- Load Sound
   flapSound = love.sound.newSoundData("sfx/flap.ogg")

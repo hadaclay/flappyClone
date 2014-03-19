@@ -78,14 +78,22 @@ function player:gameMovement()
 end
 
 function player:death()
+  playerAnim:stop()
+
   if player.score > player.highestScore then
     player.highestScore = player.score
   end
 
-  player.y = deathHeight
-  player.velocity = 0
+  if player.y >= deathHeight then
+    player.y = deathHeight
+    player.velocity = 0
+  end
 
-  playerAnim:stop()
+  player.velocity = player.velocity + player.gravity
+  player.y = player.y + player.velocity
+
+  --player.y = deathHeight
+  --player.velocity = 0
 
   if love.keyboard.isDown("r") then
     playerAnim:play()
@@ -107,11 +115,14 @@ end
 
 function player:draw()
   if globalState == States.NotPlaying then
-    drawText("Press Space to Begin", 165, love.graphics.getHeight() / 4)
+    local beginWidth = gameFont:getWidth("Press Space to Begin")
+    drawText("Press Space to Begin", love.graphics.getWidth()/2 - beginWidth/2, love.graphics.getHeight() / 4)
   end
 
   if globalState == States.Death then
-    drawText("Press R to Restart", 165, love.graphics.getHeight() / 4)
+    local restartWidth = gameFont:getWidth("Press R to Restart")
+    drawText("Press R to Restart", love.graphics.getWidth()/2 - restartWidth/2,
+            love.graphics.getHeight() / 4)
   end
 
   playerAnim:draw(player.x, player.y, player.rotation, SF, SF)

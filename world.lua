@@ -19,7 +19,7 @@ world = {
   pipeXDistance = 400, -- Distance between pipes
   pipeYDistance = 150, -- Distance between top and bottom pipe
   pipeYMin = -570,     -- The highest a top pipe can be
-  pipeYMax = -390,     -- and the lowest
+  pipeYMax = -410,     -- and the lowest
 }
 
 -- 1st Pipe
@@ -190,7 +190,9 @@ function world:draw()
     love.graphics.draw(pipeFlipGraphic, pipe3x1, pipe3y1, 0 ,SF, SF)
     love.graphics.draw(pipeGraphic, pipe3x2, pipe3y2, 0 ,SF, SF)
 
-    drawText(player.score,love.graphics.getWidth()/2,love.graphics.getHeight()/4)
+    -- Center score text
+    local textWidth = gameFont:getWidth(tostring(player.score))
+    drawText(player.score,love.graphics.getWidth()/2 - textWidth/2,love.graphics.getHeight()/4)
   end
 
   if globalState == States.Death then
@@ -203,15 +205,19 @@ function world:draw()
     love.graphics.draw(pipeFlipGraphic, pipe3x1, pipe3y1, 0 ,SF, SF)
     love.graphics.draw(pipeGraphic, pipe3x2, pipe3y2, 0 ,SF, SF)
 
-    drawText("Score: " .. player.score, love.graphics.getWidth() / 2 - 70,
+    local scoreWidth = gameFont:getWidth("Score: " .. tostring(player.score))
+    drawText("Score: " .. player.score, love.graphics.getWidth()/2 - scoreWidth/2,
              love.graphics.getHeight() / 4 + 36)
-    drawText("High Score: "..player.highestScore, love.graphics.getWidth() / 3 - 5,
+
+    local highScoreWidth = gameFont:getWidth("High Score: "..tostring(player.highestScore))
+    drawText("High Score: "..player.highestScore, love.graphics.getWidth()/2 - highScoreWidth/2,
              love.graphics.getHeight() / 4 + 72)
   end
 
   world:drawGround()
 
   if globalState == States.NotPlaying then
+    -- Show logo before game
     love.graphics.draw(logoGraphic,
                 love.graphics.getWidth() / 2 - logoGraphic:getWidth() * 4 / 2,
                 15, 0, SF, SF)
