@@ -20,10 +20,12 @@ function love.load()
 
   gameFont = love.graphics.newFont("img/pressstart2p.ttf", 24)
   gameFont:setFilter("nearest", "nearest", 1)
+  gameFontSmall = love.graphics.newFont("img/pressstart2p.ttf", 8)
 
   -- Load Sound
-  flapSound = love.sound.newSoundData("sfx/flap.ogg")
-  hurtSound = love.sound.newSoundData("sfx/hurt.ogg")
+  flapSound = love.audio.newSource("sfx/flap.ogg", "static")
+  flapSound:setVolume(0.3)
+  hurtSound = love.audio.newSource("sfx/hurt.ogg", "static")
 
   globalState = States.NotPlaying
 end

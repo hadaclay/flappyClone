@@ -38,6 +38,7 @@ function love.keypressed(key, isrepeat)
     if globalState == States.Playing then
       player.velocity = 0
       player.velocity = player.velocity - player.flapPower
+      flapSound:play()
     end
   end
 end
@@ -73,6 +74,7 @@ function player:gameMovement()
 
   -- Check for ground collision
   if player.y + (player.height * SF) >= world.groundTop then
+    hurtSound:play()
     globalState = States.Death
   end
 end

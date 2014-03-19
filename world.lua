@@ -120,9 +120,11 @@ function world:updateCollision()
   -- 1st Pipe
   if CheckCollision(player.x, player.y, player.width, player.height * SF,
                pipe1x1, pipe1y1, world.pipeWidth, world.pipeHeight - 5) then
+    hurtSound:play()
     globalState = States.Death
   elseif CheckCollision(player.x, player.y, player.width, player.height * SF,
                pipe1x2, pipe1y2, world.pipeWidth, world.pipeHeight + 5) then
+    hurtSound:play()
     globalState = States.Death
 
   -- If player passes between pipes, increment score
@@ -134,9 +136,11 @@ function world:updateCollision()
   -- 2nd pipe
   if CheckCollision(player.x, player.y, player.width, player.height * SF,
                pipe2x1, pipe2y1, world.pipeWidth, world.pipeHeight - 5) then
+    hurtSound:play()
     globalState = States.Death
   elseif CheckCollision(player.x, player.y, player.width, player.height * SF,
                pipe2x2, pipe2y2, world.pipeWidth, world.pipeHeight + 5) then
+    hurtSound:play()
     globalState = States.Death
 
   -- If player passes between pipes, increment score
@@ -148,9 +152,11 @@ function world:updateCollision()
   -- 3rd pipe
   if CheckCollision(player.x, player.y, player.width, player.height * SF,
                pipe3x1, pipe3y1, world.pipeWidth, world.pipeHeight - 5) then
+    hurtSound:play()
     globalState = States.Death
   elseif CheckCollision(player.x, player.y, player.width, player.height * SF,
                pipe3x2, pipe3y2, world.pipeWidth, world.pipeHeight + 5) then
+    hurtSound:play()
     globalState = States.Death
 
   -- If player passes between pipes, increment score
@@ -170,12 +176,6 @@ function world:update(dt)
     world:resetPipes()
     player.score = 0
   end
-end
-
-function drawDebugRect(x, y, w, h)
-  love.graphics.setColor(255, 0, 0, 255)
-  love.graphics.rectangle("fill", x, y, w, h)
-  love.graphics.reset()
 end
 
 function world:draw()
@@ -217,10 +217,16 @@ function world:draw()
   world:drawGround()
 
   if globalState == States.NotPlaying then
+    love.graphics.setFont(gameFontSmall)
+    local creditWidth = gameFontSmall:getWidth("Clayton Hadaway, 2014")
+    drawText("Clayton Hadaway, 2014", love.graphics.getWidth()/2 - creditWidth/2,
+             love.graphics.getHeight() - 10)
+
     -- Show logo before game
     love.graphics.draw(logoGraphic,
                 love.graphics.getWidth() / 2 - logoGraphic:getWidth() * 4 / 2,
                 15, 0, SF, SF)
+    love.graphics.setFont(gameFont)
   end
 end
 
