@@ -2,7 +2,7 @@ require("lib/AnAL") -- Animation library
 require("lib/BoundingBox")
 
 love.graphics.setDefaultFilter("nearest", "nearest", 1)
-playerGraphic = love.graphics.newImage("img/fappy_dong_spritesheet.png")
+playerGraphic = love.graphics.newImage("img/spritesheet.png")
 playerAnim    = newAnimation(playerGraphic, 17, 12, 0.1, 0)
 SF = 4
 
