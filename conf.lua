@@ -1,10 +1,9 @@
 function love.conf(t)
-    t.identity = "fappyDong"           -- The name of the save directory (string)
+    t.identity = "flappyClone"         -- The name of the save directory (string)
     t.version = "0.9.0"                -- The LÖVE version this game was made for (string)
     t.console = false                  -- Attach a console (boolean, Windows only)
 
-    t.window.title = "fappyDong"       -- The window title (string)
-    t.window.icon = "img/icon.png"     -- Filepath to an image to use as the window's icon (string)
+    t.window.title = "flappyClone"       -- The window title (string)
     t.window.width = 640               -- The window width (number)
     t.window.height = 480              -- The window height (number)
     t.window.borderless = false        -- Remove all border visuals from the window (boolean)

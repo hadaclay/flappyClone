@@ -1,10 +1,9 @@
 -- Load world graphics
 love.graphics.setDefaultFilter("nearest", "nearest", 1)
-logoGraphic     = love.graphics.newImage("img/fappyDong Logo.png")
+logoGraphic     = love.graphics.newImage("img/logo.png")
 bgGraphic       = love.graphics.newImage("img/bg.png")
 groundGraphic   = love.graphics.newImage("img/ground.png")
-pipeGraphic     = love.graphics.newImage("img/pipe_condom.png")
-pipeFlipGraphic = love.graphics.newImage("img/pipe_condom_flip.png")
+pipeGraphic     = love.graphics.newImage("img/pipe.png")
 SF = 4
 
 world = {
@@ -181,13 +180,13 @@ end
 function world:draw()
   love.graphics.draw(bgGraphic, 0, 0, 0, SF, SF)
   if globalState == States.Playing then
-    love.graphics.draw(pipeFlipGraphic, pipe1x1, pipe1y1, 0, SF, SF)
+    love.graphics.draw(pipeGraphic, pipe1x1, pipe1y1, 0, SF, SF)
     love.graphics.draw(pipeGraphic, pipe1x2, pipe1y2, 0, SF, SF)
 
-    love.graphics.draw(pipeFlipGraphic, pipe2x1, pipe2y1, 0 ,SF, SF)
+    love.graphics.draw(pipeGraphic, pipe2x1, pipe2y1, 0 ,SF, SF)
     love.graphics.draw(pipeGraphic, pipe2x2, pipe2y2, 0 ,SF, SF)
 
-    love.graphics.draw(pipeFlipGraphic, pipe3x1, pipe3y1, 0 ,SF, SF)
+    love.graphics.draw(pipeGraphic, pipe3x1, pipe3y1, 0 ,SF, SF)
     love.graphics.draw(pipeGraphic, pipe3x2, pipe3y2, 0 ,SF, SF)
 
     -- Center score text
@@ -196,13 +195,13 @@ function world:draw()
   end
 
   if globalState == States.Death then
-    love.graphics.draw(pipeFlipGraphic, pipe1x1, pipe1y1, 0, SF, SF)
+    love.graphics.draw(pipeGraphic, pipe1x1, pipe1y1, 0, SF, SF)
     love.graphics.draw(pipeGraphic, pipe1x2, pipe1y2, 0, SF, SF)
 
-    love.graphics.draw(pipeFlipGraphic, pipe2x1, pipe2y1, 0 ,SF, SF)
+    love.graphics.draw(pipeGraphic, pipe2x1, pipe2y1, 0 ,SF, SF)
     love.graphics.draw(pipeGraphic, pipe2x2, pipe2y2, 0 ,SF, SF)
 
-    love.graphics.draw(pipeFlipGraphic, pipe3x1, pipe3y1, 0 ,SF, SF)
+    love.graphics.draw(pipeGraphic, pipe3x1, pipe3y1, 0 ,SF, SF)
     love.graphics.draw(pipeGraphic, pipe3x2, pipe3y2, 0 ,SF, SF)
 
     local scoreWidth = gameFont:getWidth("Score: " .. tostring(player.score))
